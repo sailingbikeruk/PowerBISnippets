@@ -1,0 +1,2 @@
+# Transform column names. change the format after the 'each' statement and make sure you have the previous step (or nominated step) as the first parameter in place of #"Promoted Haders"
+= Table.TransformColumnNames(#"Promoted Headers", each Text.Proper(Text.Replace( _, "_"," ")))
