@@ -1,0 +1,2 @@
+# Sort Columns in a Power Query table into alphabetical order by column name left to right
+=Table.ReorderColumns( NameOfPreviousStep, List.Sort( Table.ColumnNames( NameOfPreviousStep ), Order.Ascending ) )
