@@ -1,0 +1,2 @@
+# Extract the suffix from a UPN or email address in Power Query (M)
+= Table.AddColumn(#"Changed Type", "Suffix", each Text.Middle([Mail],Text.PositionOf([Mail],"@")))
