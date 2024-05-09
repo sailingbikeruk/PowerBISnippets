@@ -8,3 +8,5 @@ each Business[BU]{List.PositionOf(Business[Domain],[Mail Domain])})
 /* this is the full code from Power Query */
 
 = Table.AddColumn(#"Renamed Columns1", "Business", each Business[BU]{List.PositionOf(Business[Domain],[Mail Domain])})
+
+/* Reference Video https://www.youtube.com/watch?v=U97r2_O8IyI */
