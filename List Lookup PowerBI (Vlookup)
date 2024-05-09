@@ -1,0 +1,10 @@
+/* To look up a matching value from another table */
+/* Mail Domain in Users = Domain in Business */
+/* each iterates over each row */
+
+/* This snippet returns the value in the BU column in the row where "Domain" in the table named "Business" matches the value of "Mail Domain" in the current row of the current Table */
+each Business[BU]{List.PositionOf(Business[Domain],[Mail Domain])})
+
+/* this is the full code from Power Query */
+
+= Table.AddColumn(#"Renamed Columns1", "Business", each Business[BU]{List.PositionOf(Business[Domain],[Mail Domain])})
