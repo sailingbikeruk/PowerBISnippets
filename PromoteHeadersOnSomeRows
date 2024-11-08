@@ -1,0 +1,39 @@
+# So you have a table with some headers that have already been promoted and others that have not, but that have their column names in the top row
+# Name  PartNo  Quantity  column1  column2  column3   
+#                         Catalog  Cost     Margin 
+
+# you cant just promote the first row because that would overwrite the existing columns as well so we have to do it manually
+
+# Step 1
+# Reorder the columns so that those are already named to the end of the table
+# Create a new step and name it Reordered_Columns
+= Table.ReorderColumns(#"Reordered_Columns",{"column1", "column2", "column3", "Name", "PartNo", "Quantity"})
+
+# Step 2
+# Find the position of the first column that already has a column name - in our case "Name"
+# create a new step and rename it GetLastColumnToChange
+= List.PositionOf(Table.ColumnNames(Reordered_Columns), "Name")
+
+# Step 3
+# get the current Column Names for ONLY the columns that need renaming
+# Create a new step and call it GetNewColumnNames
+= List.FirstN(Table.ColumnNames(Reordered_Columns),GetLastColumnToChange)
+
+# Step 4
+# get the new column names from the first row
+# create a new step and call it GetNewColumnNames
+= List.FirstN(Record.ToList(Reordered_Columns{0}),GetLastColumnToChange)
+
+# Step 5
+# Pair the new and old names on a list
+# create a new step and call it PairOldAndNewNames
+= List.Zip({GetOldColumnNames,GetNewColumnNames})
+
+# step 6
+# Rename the columns using the previous list 
+# Create a new step and call it DynamicallyRenameColumns
+= Table.RenameColumns(Reordered_Columns,PairOldAndNewNames)
+
+# Remove the Top Row
+= Table.Skip(DynamicallyRenameColumns,1)
+
