@@ -16,7 +16,7 @@
 
 # Step 3
 # get the current Column Names for ONLY the columns that need renaming
-# Create a new step and call it GetNewColumnNames
+# Create a new step and call it GetOldColumnNames
 = List.FirstN(Table.ColumnNames(Reordered_Columns),GetLastColumnToChange)
 
 # Step 4
